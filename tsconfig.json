@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node 14",
+
+  "include": [
+    "src/**/*.ts"
+  ],
+
+  "exclude": [
+    "src/**/test/*",
+    "src/test-utils"
+  ],
+
+  "compilerOptions": {
+    "outDir": "lib",
+    "lib": ["ES2020"],
+    "module": "commonjs",
+    "target": "es2020",
+    "declaration": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+    "plugins": [
+      { "transform": "ts-auto-mock/transformer", "cacheBetweenTests": false }
+    ]
+  },
+}
