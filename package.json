@@ -44,6 +44,5 @@
   "files": [
     "lib"
   ],
-  "license": "UNLICENSED",
-  "private": true
+  "license": "UNLICENSED"
 }
