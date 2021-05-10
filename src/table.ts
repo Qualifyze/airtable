@@ -20,7 +20,8 @@ export interface TableActionPoint {
 }
 
 export class Table<Fields extends UnknownFields>
-  implements TableActionPoint, FieldsValidator<Fields> {
+  implements TableActionPoint, FieldsValidator<Fields>
+{
   public readonly base: TableDataSource;
   public readonly name: string;
   public validator?: FieldsValidator<Fields>;
