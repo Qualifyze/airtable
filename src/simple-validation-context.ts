@@ -1,7 +1,8 @@
 import { ValidationContext } from "./validator";
 
 export abstract class SimpleValidationContext<I, O extends I>
-  implements ValidationContext<I, O> {
+  implements ValidationContext<I, O>
+{
   private listOfErrors: Error[] = [];
   protected readonly dataDescription: string;
 

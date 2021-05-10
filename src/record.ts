@@ -21,7 +21,8 @@ export interface RecordActionPoint {
 }
 
 export class AirtableRecord<Fields extends UnknownFields>
-  implements RecordActionPoint {
+  implements RecordActionPoint
+{
   public readonly source: RecordDataSource<Fields>;
   public readonly id: string;
   public readonly data?: Readonly<Fields>;
