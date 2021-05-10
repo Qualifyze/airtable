@@ -32,12 +32,12 @@ export type SelectQueryParams<Fields extends UnknownFields> = {
   userLocale?: UserLocale;
 };
 
-export type SelectQueryDataSource<
-  Fields extends UnknownFields
-> = FieldsValidator<Fields> & TableActionPoint;
+export type SelectQueryDataSource<Fields extends UnknownFields> =
+  FieldsValidator<Fields> & TableActionPoint;
 
 export class SelectQuery<Fields extends UnknownFields>
-  implements AsyncIterable<AirtableRecord<Fields>> {
+  implements AsyncIterable<AirtableRecord<Fields>>
+{
   public readonly table: SelectQueryDataSource<Fields>;
   public readonly params: SelectQueryParams<Fields>;
 
@@ -60,9 +60,7 @@ export class SelectQuery<Fields extends UnknownFields>
     };
   }
 
-  async fetchRecords(
-    payload: SelectQueryPayload<Fields>
-  ): Promise<{
+  async fetchRecords(payload: SelectQueryPayload<Fields>): Promise<{
     records: AirtableRecord<Fields>[];
     offset?: string;
   }> {
