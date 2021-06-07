@@ -18,8 +18,10 @@ function mockSource<R extends UnknownFields>(
     [string, SelectQueryPayload<R>]
   >;
 } {
-  const mockedApi =
-    jest.fn<Promise<QueryPageResult<R>>, [string, SelectQueryPayload<R>]>();
+  const mockedApi = jest.fn<
+    Promise<QueryPageResult<R>>,
+    [string, SelectQueryPayload<R>]
+  >();
 
   const source = createMock<SelectQueryDataSource<R>>({
     runTableAction: mockedApi as unknown as <Q>() => Q,
