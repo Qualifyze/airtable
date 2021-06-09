@@ -58,8 +58,8 @@ export class AirtableRecord<Fields extends UnknownFields>
   }
 
   async fetch(): Promise<AirtableRecord<Fields>> {
-    const fields = await this.runRecordAction("GET", {
-      responseValidation: this.source.createValidation(),
+    const { fields } = await this.runRecordAction("GET", {
+      responseValidation: new RecordDataValidation(this.source),
     });
     return new AirtableRecord(this.source, this.id, fields);
   }
