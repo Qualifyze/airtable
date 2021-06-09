@@ -22,7 +22,7 @@ export class OfficialClientWrapper implements Endpoint {
     const { statusCode, headers, body } = await this.officialClient.makeRequest(
       {
         method,
-        path: path === null ? undefined : path,
+        path: path === null ? undefined : `/${path}`,
         qs: payload?.query,
         body: payload?.body,
       }
