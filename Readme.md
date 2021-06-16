@@ -77,7 +77,7 @@ const query = {
   filterByFormula: [">", { field: "age" }, 35],
 };
 
-for await (const person of persons.query(query)) {
+for await (const person of persons.select(query)) {
   console.log(person.data);
 }
 ```
