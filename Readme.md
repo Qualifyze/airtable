@@ -144,3 +144,14 @@ console.log({
 ```
 
 There are no `.set()` or `.get()` methods on the Record API.
+
+## Testing changes
+
+In addition to usual `lint` and `test` scripts, there is an integration test to check
+the client against the real airtable base.
+
+- create the file `.env` based on `.env.example`
+- pick a table with at least two string fields where it's ok to create new records
+- bash `npm run integration`
+
+All the created records are deleted in case of the successful execution.
