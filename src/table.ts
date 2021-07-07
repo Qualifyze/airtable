@@ -96,7 +96,9 @@ export class Table<Fields extends UnknownFields>
     const data = await this.runTableAction("POST", {
       responseValidation: new MultiRecordDataValidation(this),
       payload: {
-        body: { records },
+        body: {
+          records: records.map((record) => ({ fields: record })),
+        },
       },
     });
 
@@ -116,14 +118,7 @@ export class Table<Fields extends UnknownFields>
   private async updateSingleRecord(
     data: RecordData<Fields>
   ): Promise<AirtableRecord<Fields>> {
-    const response = await this.runTableAction("PATCH", {
-      responseValidation: new RecordDataValidation(this),
-      payload: {
-        body: data,
-      },
-    });
-
-    return AirtableRecord.fromRecordData(this, response);
+    return new AirtableRecord(this, data.id).update(data.fields);
   }
 
   private async updateMultipleRecords(
@@ -142,14 +137,7 @@ export class Table<Fields extends UnknownFields>
   private async replaceSingleRecord(
     data: RecordData<Fields>
   ): Promise<AirtableRecord<Fields>> {
-    const response = await this.runTableAction("PUT", {
-      responseValidation: new RecordDataValidation(this),
-      payload: {
-        body: data,
-      },
-    });
-
-    return AirtableRecord.fromRecordData(this, response);
+    return new AirtableRecord(this, data.id).replace(data.fields);
   }
 
   private async replaceMultipleRecords(
