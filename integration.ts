@@ -4,6 +4,9 @@ import { AirtableRecord, Base, UnknownFields } from "./src";
 const apiKey = process.env.AIRTABLE_API_KEY;
 const baseId = process.env.AIRTABLE_BASE_ID;
 const tableName = process.env.TEST_TABLE_NAME;
+
+// FIXME Better to use ajv package to read JSON schema file for a table under test
+// which would help testing the field validation
 const fieldNames = (process.env.TEST_FIELD_NAMES || "").split(",");
 
 if (!apiKey) throw new Error("AIRTABLE_API_KEY is not set");
@@ -194,7 +197,7 @@ const main = async () => {
     await validateNotFound(() => table.find(multipleRecords[0].id));
   }
 
-  // TODO Test table.select
+  // TODO Test table.select & validation
   console.log("Done");
 };
 
