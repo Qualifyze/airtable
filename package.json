@@ -1,6 +1,6 @@
 {
   "name": "@qualifyze/airtable",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A more powerful airtable client",
   "main": "lib/index.js",
   "scripts": {
