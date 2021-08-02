@@ -71,7 +71,7 @@ const main = async () => {
     console.log("Checking record.fetch...");
 
     validateRecord(
-      await new AirtableRecord(table, singleRecord.id).fetch(),
+      await new AirtableRecord(table, singleRecord.id, {}).fetch(),
       singleRecord
     );
 
@@ -98,7 +98,7 @@ const main = async () => {
     console.log("Checking with record.fetch for non-existing record...");
 
     await validateNotFound(() =>
-      new AirtableRecord(table, singleRecord.id).fetch()
+      new AirtableRecord(table, singleRecord.id, {}).fetch()
     );
   }
 

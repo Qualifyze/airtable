@@ -20,31 +20,15 @@ export interface RecordActionPoint {
   ): Promise<R>;
 }
 
-export class AirtableRecord<Fields extends UnknownFields>
+export class AirtableRecordDraft<Fields extends UnknownFields>
   implements RecordActionPoint
 {
   public readonly source: RecordDataSource<Fields>;
   public readonly id: string;
-  public readonly data?: Readonly<Fields>;
 
-  static fromRecordData<Fields extends UnknownFields>(
-    source: RecordDataSource<Fields>,
-    { id, fields }: RecordData<Fields>
-  ): AirtableRecord<Fields> {
-    return new AirtableRecord<Fields>(source, id, fields);
-  }
-
-  static fromMultiRecordData<Fields extends UnknownFields>(
-    source: RecordDataSource<Fields>,
-    { records }: MultiRecordData<Fields>
-  ): AirtableRecord<Fields>[] {
-    return records.map((data) => this.fromRecordData(source, data));
-  }
-
-  constructor(source: RecordDataSource<Fields>, id: string, data?: Fields) {
+  constructor(source: RecordDataSource<Fields>, id: string) {
     this.source = source;
     this.id = id;
-    this.data = data;
   }
 
   runRecordAction<P extends UnknownActionPayload, R>(
@@ -94,5 +78,30 @@ export class AirtableRecord<Fields extends UnknownFields>
     return this.runRecordAction("DELETE", {
       responseValidation: new DeletedRecordValidation(),
     });
+  }
+}
+
+export class AirtableRecord<
+  Fields extends UnknownFields
+> extends AirtableRecordDraft<Fields> {
+  public readonly data: Readonly<Fields>;
+
+  static fromRecordData<Fields extends UnknownFields>(
+    source: RecordDataSource<Fields>,
+    { id, fields }: RecordData<Fields>
+  ): AirtableRecord<Fields> {
+    return new AirtableRecord<Fields>(source, id, fields);
+  }
+
+  static fromMultiRecordData<Fields extends UnknownFields>(
+    source: RecordDataSource<Fields>,
+    { records }: MultiRecordData<Fields>
+  ): AirtableRecord<Fields>[] {
+    return records.map((data) => this.fromRecordData(source, data));
+  }
+
+  constructor(source: RecordDataSource<Fields>, id: string, data: Fields) {
+    super(source, id);
+    this.data = data;
   }
 }

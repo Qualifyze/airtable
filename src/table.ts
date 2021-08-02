@@ -2,7 +2,7 @@ import { FieldsValidator, UnknownFields } from "./fields";
 import { ActionPoint, ActionPointOptions } from "./action-point";
 import { ValidationContext } from "./validator";
 import { RestMethod, UnknownActionPayload } from "./endpoint";
-import { AirtableRecord } from "./record";
+import { AirtableRecord, AirtableRecordDraft } from "./record";
 import { SelectQuery, SelectQueryParams } from "./select-query";
 
 import { RecordData, RecordDataValidation } from "./raw-types";
@@ -70,7 +70,7 @@ export class Table<Fields extends UnknownFields>
   }
 
   find(recordId: string): Promise<AirtableRecord<Fields>> {
-    return new AirtableRecord(this, recordId).fetch();
+    return new AirtableRecordDraft(this, recordId).fetch();
   }
 
   select(query: SelectQueryParams<Fields> = {}): SelectQuery<Fields> {
@@ -118,7 +118,7 @@ export class Table<Fields extends UnknownFields>
   private async updateSingleRecord(
     data: RecordData<Fields>
   ): Promise<AirtableRecord<Fields>> {
-    return new AirtableRecord(this, data.id).update(data.fields);
+    return new AirtableRecordDraft(this, data.id).update(data.fields);
   }
 
   private async updateMultipleRecords(
@@ -137,7 +137,7 @@ export class Table<Fields extends UnknownFields>
   private async replaceSingleRecord(
     data: RecordData<Fields>
   ): Promise<AirtableRecord<Fields>> {
-    return new AirtableRecord(this, data.id).replace(data.fields);
+    return new AirtableRecordDraft(this, data.id).replace(data.fields);
   }
 
   private async replaceMultipleRecords(
@@ -173,7 +173,7 @@ export class Table<Fields extends UnknownFields>
   }
 
   private destroySingleRecord(id: string): Promise<DeletedRecord> {
-    return new AirtableRecord(this, id).destroy();
+    return new AirtableRecordDraft(this, id).destroy();
   }
 
   private async destroyMultipleRecords(
