@@ -2,7 +2,8 @@ import { FieldsValidator, UnknownFields } from "./fields";
 import { ActionPoint, ActionPointOptions } from "./action-point";
 import { ValidationContext } from "./validator";
 import { RestMethod, UnknownActionPayload } from "./endpoint";
-import { AirtableRecord, AirtableRecordDraft } from "./record";
+import { AirtableRecord } from "./record";
+import { AirtableRecordDraft } from "./record-draft";
 import { SelectQuery, SelectQueryParams } from "./select-query";
 
 import { RecordData, RecordDataValidation } from "./raw-types";
