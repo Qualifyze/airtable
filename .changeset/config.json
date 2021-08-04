@@ -1,0 +1,7 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@1.6.0/schema.json",
+  "changelog": ["@changesets/changelog-github", { "repo": "Qualifyze/airtable" }],
+  "commit": false,
+  "access": "restricted",
+  "baseBranch": "main"
+}
