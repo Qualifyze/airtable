@@ -7,6 +7,7 @@
     "build": "tsc",
     "test": "jest",
     "lint": "eslint .",
+    "release": "changeset publish",
     "integration": "ts-node -r dotenv/config integration.ts"
   },
   "repository": {
