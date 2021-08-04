@@ -1,13 +1,15 @@
-name: Test
+name: Release
 on:
   push:
-    branches-ignore: [ main ]
+    branches: [ main ]
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # full history is needed for changesets action
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -21,5 +23,14 @@ jobs:
         run: npm run test
       - name: Build package
         run: npm run build
+      - name: Create release PR or publish
+        uses: changesets/action@c2918239208f2162b9d27a87f491375c51592434
+        with:
+          publish: changeset publish
+          commit: Release a new version
+          title: Release a new version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Check integrity of repository artifacts
         uses: Qualifyze/check-git-integrity-action@v1.0.0

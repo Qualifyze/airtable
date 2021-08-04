@@ -155,3 +155,17 @@ the client against the real airtable base.
 - bash `npm run integration`
 
 All the created records are deleted in case of the successful execution.
+
+## Contributing code
+
+Add the changeset description using the interactive command `npx changeset`.
+This will create a new file in `.changeset` folder which defines how the change
+should affect the package version (major, minor, patch) and contains a small
+description for the release notes. The file should be part of the same pull requests
+it describes.
+
+## Release a new version
+
+Each PR with changeset files merged into the main branch will open/update PR
+to release the package with the proper version. Merging that PR will bump the version,
+create a GitHub release and publish the new version to the npm registry.
