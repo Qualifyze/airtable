@@ -5,8 +5,9 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "jest",
+    "test": "jest --runInBand",
     "lint": "eslint .",
+    "release": "npm run test && npm run build && changeset publish",
     "integration": "ts-node -r dotenv/config integration.ts"
   },
   "repository": {

@@ -17,16 +17,10 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Lint source code
-        run: npm run lint
-      - name: Run tests
-        run: npm run test
-      - name: Build package
-        run: npm run build
       - name: Create release PR or publish
         uses: changesets/action@c2918239208f2162b9d27a87f491375c51592434
         with:
-          publish: changeset publish
+          publish: npm run release
           commit: Release a new version
           title: Release a new version
         env:
