@@ -169,3 +169,7 @@ it describes.
 Each PR with changeset files merged into the main branch will open/update PR
 to release the package with the proper version. Merging that PR will bump the version,
 create a GitHub release and publish the new version to the npm registry.
+
+Unfortunately, the test workflow required to merge a PR is not triggered by
+the version PR. The workaround is assigning PR to yourself which is added as
+an additional trigger for the test workflow.
