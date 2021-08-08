@@ -1,0 +1,13 @@
+name: Changeset fix
+on:
+  pull_request:
+    types: [ edited ]
+    branches: [ changeset-release/** ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
