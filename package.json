@@ -24,6 +24,7 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.0",
     "@changesets/cli": "^2.16.0",
+    "@types/airtable": "^0.10.1",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.2",
     "airtable": "^0.10.1",
