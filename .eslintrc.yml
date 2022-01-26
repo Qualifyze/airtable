@@ -17,5 +17,5 @@ ignorePatterns:
   - "lib/*"
   - "**/node_modules/*"
 rules:
+  "@typescript-eslint/no-explicit-any": "error"
   "prettier/prettier": "error"
-

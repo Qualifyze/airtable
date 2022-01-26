@@ -56,7 +56,10 @@ const validateNotFound = async <R>(target: () => Promise<R>) => {
   try {
     await target();
     throw new Error("Expected an error here");
-  } catch (error) {
+    // TODO There should be a method to return null instead of an error when record is not found
+    // This is a quickfix to implicit => explicit any in the latest typescript version
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     if (error.statusCode !== 404) throw error;
   }
 };
