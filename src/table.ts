@@ -117,13 +117,13 @@ export class Table<Fields extends UnknownFields>
   }
 
   private async updateSingleRecord(
-    data: RecordData<Fields>
+    data: RecordData<Partial<Fields>>
   ): Promise<AirtableRecord<Fields>> {
     return new AirtableRecordDraft(this, data.id).update(data.fields);
   }
 
   private async updateMultipleRecords(
-    data: RecordData<Fields>[]
+    data: RecordData<Partial<Fields>>[]
   ): Promise<AirtableRecord<Fields>[]> {
     const response = await this.runTableAction("PATCH", {
       responseValidation: new MultiRecordDataValidation(this),
@@ -153,10 +153,12 @@ export class Table<Fields extends UnknownFields>
     return AirtableRecord.fromMultiRecordData(this, response);
   }
 
-  update(data: RecordData<Fields>): Promise<AirtableRecord<Fields>>;
-  update(data: RecordData<Fields>[]): Promise<AirtableRecord<Fields>[]>;
+  update(data: RecordData<Partial<Fields>>): Promise<AirtableRecord<Fields>>;
+  update(
+    data: RecordData<Partial<Fields>>[]
+  ): Promise<AirtableRecord<Fields>[]>;
   async update(
-    data: RecordData<Fields> | RecordData<Fields>[]
+    data: RecordData<Partial<Fields>> | RecordData<Partial<Fields>>[]
   ): Promise<AirtableRecord<Fields> | AirtableRecord<Fields>[]> {
     return Array.isArray(data)
       ? this.updateMultipleRecords(data)
