@@ -56,7 +56,7 @@ const validateNotFound = async <R>(target: () => Promise<R>) => {
   try {
     await target();
     throw new Error("Expected an error here");
-  } catch (error) {
+  } catch (error: any) {
     if (error.statusCode !== 404) throw error;
   }
 };
