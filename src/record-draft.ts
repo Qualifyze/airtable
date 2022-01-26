@@ -47,7 +47,7 @@ export class AirtableRecordDraft<Fields extends UnknownFields>
     return new AirtableRecord(this.source, this.id, fields);
   }
 
-  async update(data: Fields): Promise<AirtableRecord<Fields>> {
+  async update(data: Partial<Fields>): Promise<AirtableRecord<Fields>> {
     const { id, fields } = await this.runRecordAction("PATCH", {
       responseValidation: new RecordDataValidation(this.source),
       payload: {
