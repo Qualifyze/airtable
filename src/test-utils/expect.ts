@@ -78,7 +78,7 @@ const extensions: xMatchers & ThisType<MatcherState> = {
 // XXX while jest mutates the library when extending expect, there is no way to update type-declarations accordingly.
 // Therefore we create an extended type here that pretends that incorporates the extended interface above.
 // This is quite hacky and will probably not work for other contexts where these extensions are expected to be available
-// in.
+// in. This does not compile with jest@27.
 
 _expect.extend(extensions);
 
