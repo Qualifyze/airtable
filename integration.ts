@@ -56,11 +56,9 @@ const validateNotFound = async <R>(target: () => Promise<R>) => {
   try {
     await target();
     throw new Error("Expected an error here");
-    // TODO There should be a method to return null instead of an error when record is not found
-    // This is a quickfix to implicit => explicit any in the latest typescript version
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    if (error.statusCode !== 404) throw error;
+  } catch (err: unknown) {
+    if (err instanceof Airtable.Error && err.error === "NOT_FOUND") return;
+    throw err;
   }
 };
 
@@ -114,6 +112,13 @@ const main = async () => {
 
     console.log("Checking table.find...");
     validateRecord(await table.find(multipleRecords[0].id), multipleRecords[0]);
+
+    console.log("Checking table.findOrNull...");
+
+    validateRecord(
+      (await table.findOrNull(multipleRecords[0].id)) ?? { id: "wrong" },
+      multipleRecords[0]
+    );
 
     console.log("Checking table.update for multiple records...");
 
@@ -195,9 +200,15 @@ const main = async () => {
   } finally {
     console.log("Cleaning up with table.destroy for multiple records...");
     await table.destroy(multipleRecords.map((record) => record.id));
+  }
 
-    console.log("Checking with table.find for non-existing record...");
-    await validateNotFound(() => table.find(multipleRecords[0].id));
+  console.log("Checking with table.find for non-existing record...");
+  await validateNotFound(() => table.find(multipleRecords[0].id));
+
+  console.log("Checking with table.findOne for non-existing record...");
+
+  if ((await table.findOrNull(multipleRecords[0].id)) !== null) {
+    throw new Error(`The method findOrNull didn't return null as expected`);
   }
 
   // TODO Test table.select & validation
