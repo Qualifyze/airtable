@@ -1,9 +1,8 @@
-import Airtable from "airtable";
-
 import { FieldsValidator, UnknownFields } from "./fields";
 import { ActionPoint, ActionPointOptions } from "./action-point";
 import { ValidationContext } from "./validator";
 import { RestMethod, UnknownActionPayload } from "./endpoint";
+import { AirtableError } from "./error";
 import { AirtableRecord } from "./record";
 import { AirtableRecordDraft } from "./record-draft";
 import { SelectQuery, SelectQueryParams } from "./select-query";
@@ -81,7 +80,7 @@ export class Table<Fields extends UnknownFields>
       // async/await are needed here to catch the error
       return await new AirtableRecordDraft(this, recordId).fetch();
     } catch (err: unknown) {
-      if (err instanceof Airtable.Error && err.error === "NOT_FOUND") {
+      if (err instanceof AirtableError && err.error === "NOT_FOUND") {
         return null;
       }
       throw err;
