@@ -212,7 +212,7 @@ const main = async () => {
     throw new Error(`The method findOrNull didn't return null as expected`);
   }
 
-  // TODO Test table.select & validation
+  // TODO Test table.select
   console.log("Done");
 };
 

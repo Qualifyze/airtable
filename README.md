@@ -55,13 +55,14 @@ With the `Validator` interface you can wrap any validation library to validate y
 import { Validator } from "./validator";
 
 const validator: Validator<Person> = {
-  createValidator() {
+  createValidator(reference?: string) {
     return {
       isValid(data: unknown): data is Person {
         // Return true if data is a person.
       },
       getValidationError(): Error | null {
         // Return validation errors that were encountered in the last call to isValid().
+        // Include reference to easily identify the invalid record.
       },
     };
   },

@@ -37,8 +37,11 @@ export class MultiRecordResponseValidation<
       return false;
     }
 
-    return input.records.every((record) =>
-      this.addValidation(this.itemValidator.createValidation(), record)
-    );
+    // Map first to ensure all errors are discovered
+    return input.records
+      .map((record) =>
+        this.addValidation(this.itemValidator.createValidation(), record)
+      )
+      .every(Boolean);
   }
 }
