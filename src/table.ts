@@ -1,3 +1,5 @@
+import Airtable from "airtable";
+
 import { FieldsValidator, UnknownFields } from "./fields";
 import { ActionPoint, ActionPointOptions } from "./action-point";
 import { ValidationContext } from "./validator";
@@ -72,6 +74,18 @@ export class Table<Fields extends UnknownFields>
 
   find(recordId: string): Promise<AirtableRecord<Fields>> {
     return new AirtableRecordDraft(this, recordId).fetch();
+  }
+
+  async findOrNull(recordId: string): Promise<AirtableRecord<Fields> | null> {
+    try {
+      // async/await are needed here to catch the error
+      return await new AirtableRecordDraft(this, recordId).fetch();
+    } catch (err: unknown) {
+      if (err instanceof Airtable.Error && err.error === "NOT_FOUND") {
+        return null;
+      }
+      throw err;
+    }
   }
 
   select(query: SelectQueryParams<Fields> = {}): SelectQuery<Fields> {
