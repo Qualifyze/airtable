@@ -39,9 +39,9 @@ export class Table<Fields extends UnknownFields>
     this.validator = validator;
   }
 
-  createValidation(): ValidationContext<unknown, Fields> {
+  createValidation(reference?: string): ValidationContext<unknown, Fields> {
     return this.validator
-      ? this.validator.createValidation()
+      ? this.validator.createValidation(reference)
       : {
           isValid(input: unknown): input is Fields {
             // If a validator is attached, we check the data, otherwise we assume data is valid as we have no means of

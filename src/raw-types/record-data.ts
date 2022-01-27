@@ -40,13 +40,13 @@ export class RecordDataValidation<
 
     if (!this.hasFields(input)) {
       this.addError(
-        new Error("Expected record data to have a fields property")
+        new Error(`Expected record ${input.id} to have a fields property`)
       );
       return false;
     }
 
     return this.addValidation(
-      this.fieldsValidator.createValidation(),
+      this.fieldsValidator.createValidation(input.id),
       input.fields
     );
   }

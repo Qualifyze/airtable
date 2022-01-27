@@ -23,7 +23,7 @@ export abstract class SimpleValidationContext<I, O extends I>
 
     if (!isValid) {
       this.addError(
-        validator.getValidationError() || new Error("Unknown Validation Error")
+        validator.getValidationError() || new Error("Unknown validation error")
       );
     }
 
@@ -32,12 +32,11 @@ export abstract class SimpleValidationContext<I, O extends I>
 
   createErrorString(indent = "\t"): string {
     return this.listOfErrors
-      .map((error) => (error.stack || error).toString().split("\n"))
-      .map(([firstLine, ...moreLines], index) => [
-        `${indent}Validator Error ${index + 1}: ${firstLine}`,
-        ...moreLines.map((line) => `${indent}${indent}${line}`),
-      ])
-      .map((lines) => lines.join("\n"))
+      .map((error, index, array) => {
+        const prefix = array.length > 1 ? `#${index + 1} ` : "";
+        const message = (error.message || error).toString();
+        return `${indent}${prefix}${message}`.split("\n").join(`\n${indent}`);
+      })
       .join("\n");
   }
 
@@ -48,10 +47,13 @@ export abstract class SimpleValidationContext<I, O extends I>
       return null;
     }
 
+    const friendlyNumberOfErrors =
+      numberOfErrors > 1 ? `${numberOfErrors} errors` : "an error";
+
     return new Error(
-      `Encountered ${numberOfErrors} Error(s) while validating "${
+      `Encountered ${friendlyNumberOfErrors} while validating "${
         this.dataDescription
-      }": \n ${this.createErrorString()}`
+      }":\n${this.createErrorString()}`
     );
   }
 
