@@ -1,5 +1,5 @@
 import Airtable from "airtable";
-import { AirtableRecord, Base, UnknownFields } from "./src";
+import { AirtableError, AirtableRecord, Base, UnknownFields } from "./src";
 
 const apiKey = process.env.AIRTABLE_API_KEY;
 const baseId = process.env.AIRTABLE_BASE_ID;
@@ -55,11 +55,12 @@ const validateRecord = (
 const validateNotFound = async <R>(target: () => Promise<R>) => {
   try {
     await target();
-    throw new Error("Expected an error here");
   } catch (err: unknown) {
-    if (err instanceof Airtable.Error && err.error === "NOT_FOUND") return;
+    if (err instanceof AirtableError && err.error === "NOT_FOUND") return;
     throw err;
   }
+
+  throw new Error("Expected an error here");
 };
 
 const main = async () => {
@@ -216,6 +217,6 @@ const main = async () => {
 };
 
 main().catch((error) => {
-  console.error(error);
+  console.error(error.stack);
   process.exitCode = 1;
 });
