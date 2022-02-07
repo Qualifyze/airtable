@@ -1,5 +1,5 @@
 export interface Validator<T> {
-  createValidation(): ValidationContext<unknown, T>;
+  createValidation(reference?: string): ValidationContext<unknown, T>;
 }
 
 export interface ValidationContext<I, O extends I> {
