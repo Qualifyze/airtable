@@ -25,7 +25,7 @@ export type SelectQueryParams<Fields extends UnknownFields> = {
   filterByFormula?: Formula; // TODO constrain Formula to Fields
   maxRecords?: number;
   pageSize?: number;
-  sort?: SortParam<Fields>;
+  sort?: SortParam<Fields>[];
   view?: string;
   cellFormat?: CellFormat;
   timeZone?: TimeZone;
