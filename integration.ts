@@ -1,4 +1,5 @@
 import Airtable from "airtable";
+import { Formula } from "@qualifyze/airtable-formulator";
 import { AirtableError, AirtableRecord, Base, UnknownFields } from "./src";
 
 const apiKey = process.env.AIRTABLE_API_KEY;
@@ -121,6 +122,25 @@ const main = async () => {
       multipleRecords[0]
     );
 
+    console.log("Checking table.select...");
+
+    const selectedRecords = await table
+      .select({
+        fields: fieldNames,
+        filterByFormula: [
+          "OR",
+          ...multipleRecords.map<Formula>(({ id }) => ["=", ["RECORD_ID"], id]),
+        ],
+        sort: [{ field: fieldNames[0], direction: "asc" }],
+        maxRecords: 2,
+        pageSize: 1,
+      })
+      .all();
+
+    // Should be in alphabetical order
+    validateFields(selectedRecords[0].data, nextFields);
+    validateFields(selectedRecords[1].data, fields);
+
     console.log("Checking table.update for multiple records...");
 
     const updatedRecords = await table.update([
@@ -212,7 +232,6 @@ const main = async () => {
     throw new Error(`The method findOrNull didn't return null as expected`);
   }
 
-  // TODO Test table.select
   console.log("Done");
 };
 
