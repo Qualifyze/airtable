@@ -126,7 +126,7 @@ const base = new Base(myClient);
 
 #### No Callback APIs
 
-It's 2021. Why would you need callback APIs?
+It's 2022. Why would you need callback APIs?
 
 Use Promises or async/await.
 
