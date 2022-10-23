@@ -1,16 +1,20 @@
 import { ActionPoint, ActionPointOptions } from "./action-point";
 import { Endpoint, RestMethod, UnknownActionPayload } from "./endpoint";
-import AirtableOfficial from "airtable";
+import type AirtableOfficial from "airtable";
 import { OfficialClientWrapper } from "./official-client-wrapper";
 import { UnknownFields } from "./fields";
 import { Table } from "./table";
 import { Validator } from "./validator";
+import { AirtableEndpoint, AirtableEndpointOptions } from "./gop-client";
 
 export class Base implements ActionPoint {
   public readonly endpoint: Endpoint;
 
   static fromOfficialClient(airtable: AirtableOfficial, baseId: string): Base {
     return new this(new OfficialClientWrapper(airtable.base(baseId)));
+  }
+  static client(options: AirtableEndpointOptions): Base {
+    return new Base(new AirtableEndpoint(options));
   }
 
   constructor(endpoint: Endpoint) {

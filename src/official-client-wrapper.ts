@@ -1,4 +1,4 @@
-import Airtable from "airtable";
+import type Airtable from "airtable";
 import { AirtableError } from "./error";
 import {
   Endpoint,
@@ -41,6 +41,7 @@ export class OfficialClientWrapper implements Endpoint {
 
       return body;
     } catch (err: unknown) {
+      const Airtable = await import("airtable");
       // Because official client error is not extended from Error so no stack trace
       if (err instanceof Airtable.Error) {
         throw AirtableError.fromOfficialClientError(err);
