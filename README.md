@@ -19,7 +19,20 @@ In comparison to the [official client](https://github.com/airtable/airtable.js),
 
 The API of this client for the most part is identical to the official clients API.
 
-### Connect to the _official_ API using the official client
+### Connect to the Airtable API
+
+```javascript
+import { Base } from "@qualifyze/airtable";
+
+const base = Base.client({
+  apiKey: "YOUR_SECRET_API_KEY",
+  baseId: "YOUR_BASE_ID",
+});
+```
+
+### Alternatively: Connect to the _official_ API using the official client
+
+Using the official clients means that you will inherit their recommendations on retries on failed requests and rate-limiting.
 
 ```javascript
 import Airtable from "airtable";
