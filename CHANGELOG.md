@@ -1,5 +1,11 @@
 # @qualifyze/airtable
 
+## 2.0.2
+
+### Patch Changes
+
+- [#101](https://github.com/Qualifyze/airtable/pull/101) [`d72edd0`](https://github.com/Qualifyze/airtable/commit/d72edd081dc52eea0415752aa21fcc3f1f2edcdd) Thanks [@vubogovich](https://github.com/vubogovich)! - Update package dependencies.
+
 ## 2.0.1
 
 ### Patch Changes
