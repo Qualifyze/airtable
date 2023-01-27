@@ -8,7 +8,8 @@
     "build": "tsc",
     "test": "jest --runInBand",
     "lint": "eslint . --max-warnings=0",
-    "release": "npm run test && npm run build && changeset publish",
+    "changeset:publish": "changeset publish",
+    "changeset:version": "changeset version && npm install",
     "integration": "ts-node -r dotenv/config integration.ts"
   },
   "dependencies": {
